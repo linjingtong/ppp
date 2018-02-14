@@ -5,8 +5,11 @@ import cn.wolfcode.p2p.base.domain.IpLog;
 import cn.wolfcode.p2p.base.domain.Logininfo;
 import cn.wolfcode.p2p.base.domain.Userinfo;
 import cn.wolfcode.p2p.base.mapper.LogininfoMapper;
+import cn.wolfcode.p2p.base.service.IAccountService;
 import cn.wolfcode.p2p.base.service.IIpLogService;
 import cn.wolfcode.p2p.base.service.ILogininfoService;
+import cn.wolfcode.p2p.base.service.IUserinfoService;
+import cn.wolfcode.p2p.base.util.BidConst;
 import cn.wolfcode.p2p.base.util.MD5;
 import cn.wolfcode.p2p.base.util.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,10 @@ public class LogininfoServiceImpl implements ILogininfoService {
     private LogininfoMapper logininfoMapper;
     @Autowired
     private IIpLogService   ipLogService;
+    @Autowired
+    private IAccountService accountService;
+    @Autowired
+    private IUserinfoService userinfoService;
 
     @Override
     public int save(Logininfo record) {
@@ -52,11 +59,11 @@ public class LogininfoServiceImpl implements ILogininfoService {
         //保存用户实体
         Account account = new Account();
         account.setId(logininfo.getId());
-        //accountService.insert(account);
+        accountService.insert(account);
         //保存用户信息
         Userinfo userinfo = new Userinfo();
         userinfo.setId(logininfo.getId());
-        //userinfoService.insert(userinfo);
+        userinfoService.insert(userinfo);
 
     }
 
@@ -78,8 +85,6 @@ public class LogininfoServiceImpl implements ILogininfoService {
         } else {
             if (info.getUserType() == Logininfo.USERTYPE_MANAGER) {
                 ipLog.setUserType(Logininfo.USERTYPE_MANAGER);
-            }else{
-                ipLog.setUserType(Logininfo.USERTYPE_USER);
             }
             ipLog.setState(IpLog.LOGIN_SUCCESS);
         }
@@ -87,5 +92,18 @@ public class LogininfoServiceImpl implements ILogininfoService {
         //存在用户,保存到session中
         UserContext.setCurrent(info);
         return info;
+    }
+
+    @Override
+    public void initAdmin() {
+        int count = logininfoMapper.selectByUserType(Logininfo.USERTYPE_MANAGER);
+        if (count <= 0) {
+            Logininfo logininfo = new Logininfo();
+            logininfo.setUserType(Logininfo.USERTYPE_MANAGER);
+            logininfo.setUsername(BidConst.DEFAULT_ADMIN_NAME);
+            logininfo.setPassword(MD5.encode(BidConst.DEFAULT_ADMIN_PASSWORD));
+            logininfo.setState(Logininfo.STATE_NOMAL);
+            logininfoMapper.insert(logininfo);
+        }
     }
 }

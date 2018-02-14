@@ -19,4 +19,10 @@ public interface ILogininfoService {
     boolean checkUsername(String username);
 
     Logininfo login(String username, String password, int usertypeUser);
+
+    /**
+     * 初始化第一个管理员
+     */
+    void initAdmin();
+
 }

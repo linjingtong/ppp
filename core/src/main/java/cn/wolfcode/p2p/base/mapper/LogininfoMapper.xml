@@ -35,4 +35,9 @@
     from `logininfo`
     where username = #{username} and password=#{password} and userType=#{userType}
   </select>
+  <select id="selectByUserType" resultType="java.lang.Integer">
+     select count(id)
+    from `logininfo`
+    where userType=#{usertype}
+  </select>
 </mapper>

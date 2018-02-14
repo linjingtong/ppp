@@ -14,4 +14,6 @@ public interface LogininfoMapper {
     Logininfo checkUsername(String username);
 
     Logininfo loginCheck(@Param("username") String username, @Param("password") String password, @Param("userType") int userType);
+
+    int selectByUserType(int usertype);
 }

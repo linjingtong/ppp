@@ -3,6 +3,7 @@ package cn.wolfcode.p2p.base.service.impl;
 import cn.wolfcode.p2p.base.domain.Userinfo;
 import cn.wolfcode.p2p.base.mapper.UserinfoMapper;
 import cn.wolfcode.p2p.base.service.IUserinfoService;
+import cn.wolfcode.p2p.base.service.IVerifyCodeService;
 import cn.wolfcode.p2p.base.util.BidConst;
 import cn.wolfcode.p2p.base.util.BitStatesUtils;
 import cn.wolfcode.p2p.base.util.UserContext;
@@ -14,10 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserinfoServiceImpl implements IUserinfoService {
     @Autowired
-    private UserinfoMapper userinfoMapper;
-   /* @Autowired
-    private IVerifyCodeService verifyCodeService;
+    private UserinfoMapper     userinfoMapper;
     @Autowired
+    private IVerifyCodeService verifyCodeService;
+    /* @Autowired
     private IMailVerifyService mailVerifyService;*/
 
     @Override
@@ -44,7 +45,7 @@ public class UserinfoServiceImpl implements IUserinfoService {
         return this.selectByPrimaryKey(UserContext.getCurrent().getId());
     }
 
-    /*@Override
+    @Override
     public void bindPhone(String phoneNumber, String verifyCode) {
         //验证码,手机号是否是之前发送的,是否已经超时
         boolean result = verifyCodeService.check(phoneNumber, verifyCode);
@@ -62,6 +63,7 @@ public class UserinfoServiceImpl implements IUserinfoService {
         this.updateByPrimaryKey(userinfo);
     }
 
+    /*
     @Override
     public void bindEmail(String uuid) {
         //根据uuid去数据库查询
