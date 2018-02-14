@@ -49,6 +49,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.success) {
+                            $.messager.popup("绑定成功");
                             window.location.reload();
                         } else {
                             $.messager.popup(data.msg)

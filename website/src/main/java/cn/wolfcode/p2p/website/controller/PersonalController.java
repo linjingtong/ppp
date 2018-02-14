@@ -3,11 +3,13 @@ package cn.wolfcode.p2p.website.controller;
 import cn.wolfcode.p2p.base.service.IAccountService;
 import cn.wolfcode.p2p.base.service.IUserinfoService;
 import cn.wolfcode.p2p.base.service.impl.IpLogServiceImpl;
+import cn.wolfcode.p2p.base.util.AjaxResult;
 import cn.wolfcode.p2p.base.util.RequireLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PersonalController {
@@ -28,7 +30,7 @@ public class PersonalController {
         return "personal";
     }
 
-    /*@RequestMapping("/bindPhone")
+    @RequestMapping("/bindPhone")
     @ResponseBody
     public AjaxResult bindPhone(String phoneNumber, String verifyCode) {
 
@@ -42,7 +44,7 @@ public class PersonalController {
         }
         return ajaxResult;
     }
-    @RequestMapping("/bindEmail")
+   /* @RequestMapping("/bindEmail")
     public String bindEmail(String uuid,Model model) {
         try {
             userinfoService.bindEmail(uuid);
