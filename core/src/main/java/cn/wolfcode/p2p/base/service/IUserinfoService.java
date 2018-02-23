@@ -18,7 +18,7 @@ public interface IUserinfoService {
 
     void bindPhone(String phoneNumber, String verifyCode);
 
-    /* void bindEmail(String uuid);*/
+    void bindEmail(String uuid);
 
     int queryEmailOnly(String email);
 

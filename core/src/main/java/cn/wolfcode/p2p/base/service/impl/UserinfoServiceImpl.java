@@ -1,15 +1,20 @@
 package cn.wolfcode.p2p.base.service.impl;
 
+import cn.wolfcode.p2p.base.domain.MailVerify;
 import cn.wolfcode.p2p.base.domain.Userinfo;
 import cn.wolfcode.p2p.base.mapper.UserinfoMapper;
+import cn.wolfcode.p2p.base.service.IMailVerifyService;
 import cn.wolfcode.p2p.base.service.IUserinfoService;
 import cn.wolfcode.p2p.base.service.IVerifyCodeService;
 import cn.wolfcode.p2p.base.util.BidConst;
 import cn.wolfcode.p2p.base.util.BitStatesUtils;
+import cn.wolfcode.p2p.base.util.DateUtil;
 import cn.wolfcode.p2p.base.util.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Service
 @Transactional
@@ -18,8 +23,8 @@ public class UserinfoServiceImpl implements IUserinfoService {
     private UserinfoMapper     userinfoMapper;
     @Autowired
     private IVerifyCodeService verifyCodeService;
-    /* @Autowired
-    private IMailVerifyService mailVerifyService;*/
+    @Autowired
+    private IMailVerifyService mailVerifyService;
 
     @Override
     public int insert(Userinfo record) {
@@ -63,7 +68,7 @@ public class UserinfoServiceImpl implements IUserinfoService {
         this.updateByPrimaryKey(userinfo);
     }
 
-    /*
+
     @Override
     public void bindEmail(String uuid) {
         //根据uuid去数据库查询
@@ -84,7 +89,7 @@ public class UserinfoServiceImpl implements IUserinfoService {
         userinfo.setBitState(BitStatesUtils.addState(userinfo.getBitState(), BitStatesUtils.OP_BIND_EMAIL));
         userinfo.setEmail(mailVerify.getEmail());
         userinfoMapper.updateByPrimaryKey(userinfo);
-    }*/
+    }
 
     @Override
     public int queryEmailOnly(String email) {

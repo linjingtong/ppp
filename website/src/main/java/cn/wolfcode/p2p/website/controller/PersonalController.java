@@ -44,7 +44,7 @@ public class PersonalController {
         }
         return ajaxResult;
     }
-   /* @RequestMapping("/bindEmail")
+    @RequestMapping("/bindEmail")
     public String bindEmail(String uuid,Model model) {
         try {
             userinfoService.bindEmail(uuid);
@@ -56,5 +56,5 @@ public class PersonalController {
         }
         return "checkmail_result";
 
-    }*/
+    }
 }
