@@ -26,7 +26,7 @@
 			},{
 				"id":22,
 				"attributes": {
-					"url": "/systemDictionary_list"
+					"url": "/systemDictionaryItem_list"
 				},
 				"text":"系统数据字典明细"
 			},{

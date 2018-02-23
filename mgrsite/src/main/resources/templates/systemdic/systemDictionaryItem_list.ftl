@@ -39,8 +39,8 @@
             }
             //添加
 			$("#addSystemDictionaryItemBtn").click(function(){
-                if(parentId=="" || parentId==null){
-                    $.messager.popup("请选择需要添加的数据字典分组目录");
+                if(parentId=="" || parentId==null) {
+                    $.messager.alert("温馨提示", "请选择需要添加的数据字典分组目录", "info");
                     return;
                 }
 				$("#editForm").clearForm(true);
@@ -52,7 +52,7 @@
 				$("#editForm").ajaxSubmit({
 					dataType:'json',
 					success:function(data){
-						$.messager.popup(data.msg);
+						$.messager.alert("温馨提示",data.msg,"info");
 						if(data.success){
 							window.location.reload();
 						}
@@ -61,8 +61,8 @@
 			})
 			//修改
 			$(".edit_Btn").click(function(){
-				if(parentId=="" || parentId==null){
-					$.messager.popup("请选择数据字典分组目录");
+                if(parentId=="" || parentId==null){
+					$.messager.alert("温馨提示","请选择数据字典分组目录","info");
 					return;
 				}
 				var jsonMap = $(this).data("json");
@@ -81,10 +81,6 @@
 	<div class="container">
 		<#include "../common/top.ftl"/>
 		<div class="row">
-			<div class="col-sm-3">
-				<#assign currentMenu="systemDictionaryItem" />
-				<#include "../common/menu.ftl" />
-			</div>
 			<div class="col-sm-9">
 				<div class="page-header">
 					<h3>数据字典明细管理</h3>

@@ -65,10 +65,6 @@
 <div class="container">
 <#include "../common/top.ftl"/>
     <div class="row">
-        <div class="col-sm-3">
-        <#assign currentMenu = "systemDictionary" />
-				<#include "../common/menu.ftl" />
-        </div>
         <div class="col-sm-9">
             <div class="page-header">
                 <h3>数据字典管理</h3>
