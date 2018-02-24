@@ -11,6 +11,7 @@ public class InitSystemAccountListener implements ApplicationListener<ContextRef
     @Autowired
     private ISystemAccountService systemAccountService;
 
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         systemAccountService.initSystemAccount();
