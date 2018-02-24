@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.bussiness.mapper.SystemAccountMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.bussiness.domain.SystemAccount" >
+    <id column="id" property="id" />
+    <result column="version" property="version" />
+    <result column="usableAmount" property="usableAmount" />
+    <result column="freezedAmount" property="freezedAmount" />
+  </resultMap>
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" >
+    insert into `systemaccount` (version, usableAmount, freezedAmount)
+    values (0, #{usableAmount}, #{freezedAmount})
+  </insert>
+  <update id="updateByPrimaryKey"  >
+    update `systemaccount`
+    set version = version + 1,
+      usableAmount = #{usableAmount},
+      freezedAmount = #{freezedAmount}
+    where id = #{id} and version = #{version}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap"  >
+    select id, version, usableAmount, freezedAmount
+    from `systemaccount`
+    where id = #{id}
+  </select>
+  <select id="selectSystemAccount" resultMap="BaseResultMap" >
+    select id, version, usableAmount, freezedAmount
+    from `systemaccount`
+  </select>
+</mapper>

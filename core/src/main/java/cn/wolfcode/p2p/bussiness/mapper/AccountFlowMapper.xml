@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.bussiness.mapper.AccountFlowMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.bussiness.domain.AccountFlow" >
+    <id column="id" property="id" />
+    <result column="actionType" property="actionType" />
+    <result column="amount" property="amount" />
+    <result column="remark" property="remark" />
+    <result column="usableAmount" property="usableAmount" />
+    <result column="freezedAmount" property="freezedAmount" />
+    <result column="tradeTime" property="tradeTime" />
+    <result column="accountId" property="accountId" />
+  </resultMap>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into `accountflow` (actionType, amount, remark, usableAmount, freezedAmount, tradeTime, 
+      accountId)
+    values (#{actionType}, #{amount}, #{remark}, #{usableAmount}, #{freezedAmount}, #{tradeTime}, 
+      #{accountId})
+  </insert>
+  <update id="updateByPrimaryKey" >
+    update `accountflow`
+    set actionType = #{actionType},
+      amount = #{amount},
+      remark = #{remark},
+      usableAmount = #{usableAmount},
+      freezedAmount = #{freezedAmount},
+      tradeTime = #{tradeTime},
+      accountId = #{accountId}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap"  >
+    select id, actionType, amount, remark, usableAmount, freezedAmount, tradeTime, accountId
+    from `accountflow`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, actionType, amount, remark, usableAmount, freezedAmount, tradeTime, accountId
+    from `accountflow`
+  </select>
+</mapper>

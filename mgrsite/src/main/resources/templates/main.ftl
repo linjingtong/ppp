@@ -12,7 +12,7 @@
                 onClick: function(node){
                     var tab = $("#mainTab");
                     if(tab.tabs("exists",node.text)){
-                        tab.tabs("getSelected")
+                        tab.tabs('select',node.text)
                     }else{
                         tab.tabs("add",{
                             title:node.text,

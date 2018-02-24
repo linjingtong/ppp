@@ -57,7 +57,6 @@
             closed: true,
             cache: false,
             modal: true,
-            buttons:"#realAuth_dialog_button"
         });
 
         //审核

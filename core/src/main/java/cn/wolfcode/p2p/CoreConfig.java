@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-@MapperScan({"cn.wolfcode.p2p.base.mapper"})
+@MapperScan({"cn.wolfcode.p2p.base.mapper","cn.wolfcode.p2p.bussiness.mapper"})
 @PropertySources({
     @PropertySource("classpath:email.properties")
 })

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.bussiness.mapper.BidRequestMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.bussiness.domain.BidRequest">
+        <id column="id" property="id"/>
+        <result column="version" property="version"/>
+        <result column="bidRequestType" property="bidRequestType"/>
+        <result column="bidRequestState" property="bidRequestState"/>
+        <result column="bidRequestAmount" property="bidRequestAmount"/>
+        <result column="currentRate" property="currentRate"/>
+        <result column="monthes2Return" property="monthes2Return"/>
+        <result column="bidCount" property="bidCount"/>
+        <result column="totalRewardAmount" property="totalRewardAmount"/>
+        <result column="currentSum" property="currentSum"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="note" property="note"/>
+        <result column="disableDate" property="disableDate"/>
+        <result column="disableDays" property="disableDays"/>
+        <result column="minBidAmount" property="minBidAmount"/>
+        <result column="applyTime" property="applyTime"/>
+        <result column="publishTime" property="publishTime"/>
+        <association property="createUser" javaType="cn.wolfcode.p2p.base.domain.Logininfo"
+                     columnPrefix="cu_">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+        </association>
+        <collection property="bids" column="id" ofType="cn.wolfcode.p2p.bussiness.domain.Bid"
+                    select="cn.wolfcode.p2p.bussiness.mapper.BidMapper.selectBidRequestId"></collection>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into `bidrequest` (version, bidRequestType, bidRequestState, bidRequestAmount, currentRate,
+      monthes2Return, bidCount, totalRewardAmount, currentSum, title, 
+      description, note, disableDate, createUser_id, disableDays, minBidAmount, 
+      applyTime, publishTime)
+    values (0, #{bidRequestType}, #{bidRequestState}, #{bidRequestAmount}, #{currentRate},
+      #{monthes2Return}, #{bidCount}, #{totalRewardAmount}, #{currentSum}, #{title}, 
+      #{description}, #{note}, #{disableDate}, #{createUser.id}, #{disableDays}, #{minBidAmount}, 
+      #{applyTime}, #{publishTime})
+  </insert>
+    <update id="updateByPrimaryKey">
+    update `bidrequest`
+    set version = version + 1,
+      bidRequestType = #{bidRequestType},
+      bidRequestState = #{bidRequestState},
+      bidRequestAmount = #{bidRequestAmount},
+      currentRate = #{currentRate},
+      monthes2Return = #{monthes2Return},
+      bidCount = #{bidCount},
+      totalRewardAmount = #{totalRewardAmount},
+      currentSum = #{currentSum},
+      title = #{title},
+      description = #{description},
+      note = #{note},
+      disableDate = #{disableDate},
+      createUser_id = #{createUser.id},
+      disableDays = #{disableDays},
+      minBidAmount = #{minBidAmount},
+      applyTime = #{applyTime},
+      publishTime = #{publishTime}
+    where id = #{id} and version = #{version}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="base_table"/>
+        where br.id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="base_table"/>
+    </select>
+    <select id="queryForList" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="base_table"/>
+        <include refid="base_where"/>
+    </select>
+
+    <select id="queryListIndex" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="base_table"/>
+        <include refid="base_where"/>
+        <if test="order!=null">
+            ${order}
+        </if>
+    </select>
+
+    <sql id="base_where">
+        <where>
+            <if test="bidRequestState!=-1">
+                AND br.bidRequestState=#{bidRequestState}
+            </if>
+            <if test="states!=null">
+                AND br.bidRequestState in
+                <foreach collection="states" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <sql id="base_column">
+    br.id, br.version, br.bidRequestType, br.bidRequestState, br.bidRequestAmount, br.currentRate,
+    br.monthes2Return, br.bidCount, br.totalRewardAmount, br.currentSum, br.title, br.description, br.note,
+    br.disableDate, br.disableDays, br.minBidAmount, br.applyTime, br.publishTime,
+    cu.id AS cu_id , cu.username AS cu_username
+  </sql>
+    <sql id="base_table">
+     `bidrequest` br
+     JOIN logininfo cu ON br.createUser_id = cu.id
+  </sql>
+</mapper>

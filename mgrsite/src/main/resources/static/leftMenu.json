@@ -60,22 +60,22 @@
 			{
 				"id":36,
 				"text":"发标前审核",
-				"attributes":{"url":"/systemDictionary/list"}
+				"attributes":{"url":"/bidrequest_publishaudit_list"}
 			},
 			{
 				"id":37,
 				"text":"满标一审",
-				"attributes":{"url":"/systemDictionary/list"}
+				"attributes":{"url":"/bidrequest_audit1_list"}
 			},
 			{
 				"id":36,
 				"text":"满标二审",
-				"attributes":{"url":"/systemDictionary/list"}
+				"attributes":{"url":"/bidrequest_audit2_list"}
 			},
 			{
 				"id":36,
 				"text":"线下充值审核",
-				"attributes":{"url":"/systemDictionary/list"}
+				"attributes":{"url":"/rechargeOffline"}
 			},
 			{
 				"id":36,
@@ -90,11 +90,11 @@
 			{
 				"id":41,
 				"text":"平台账户管理",
-				"attributes":{"url":"/systemDictionary/list"}
+				"attributes":{"url":"/companyBank_list"}
 			},{
 				"id":42,
 				"text":"系统账户流水",
-				"attributes":{"url":"/systemDictionary/list"}
+				"attributes":{"url":"/real_auth_list"}
 			},{
 				"id":42,
 				"text":"系统设置"

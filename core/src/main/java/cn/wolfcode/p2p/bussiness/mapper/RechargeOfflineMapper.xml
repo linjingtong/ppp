@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.bussiness.mapper.RechargeOfflineMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.bussiness.domain.RechargeOffline" >
+    <id column="id" property="id" />
+    <result column="state" property="state" />
+    <result column="remark" property="remark" />
+    <result column="auditTime" property="auditTime" />
+    <result column="applyTime" property="applyTime" />
+    <result column="tradeCode" property="tradeCode" />
+    <result column="tradeTime" property="tradeTime" />
+    <result column="amount" property="amount" />
+    <result column="note" property="note" />
+    <association property="applier" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="ap_">
+      <id column="id" property="id"/>
+      <result column="username" property="username"/>
+    </association>
+    <association property="auditor" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="au_">
+      <id column="id" property="id"/>
+      <result column="username" property="username"/>
+    </association>
+    <association property="bankInfo" javaType="cn.wolfcode.p2p.bussiness.domain.PlatformBankinfo" columnPrefix="bi_">
+      <id column="id" property="id" />
+      <result column="bankName" property="bankName" />
+      <result column="bankNumber" property="bankNumber" />
+      <result column="bankForkName" property="bankForkName" />
+      <result column="accountName" property="accountName" />
+    </association>
+  </resultMap>
+
+  <sql id="base_where">
+
+  </sql>
+  <sql id="base_column">
+    ro.id, ro.state, ro.remark, ro.auditTime, ro.applyTime, ro.tradeCode, ro.tradeTime, ro.amount, ro.note,
+    bi.id AS bi_id,bi.bankName AS bi_bankName,
+    bi.bankNumber AS bi_bankNumber, bi.bankForkName AS bi_bankForkName, bi.accountName AS bi_accountName,
+    ap.id AS ap_id,ap.username AS ap_username,
+    au.id AS au_id,au.username AS au_username
+  </sql>
+  <sql id="base_table">
+    `rechargeoffline` ro
+    JOIN platformbankinfo bi ON ro.bankinfo_id=bi.id
+    JOIN logininfo ap ON ro.applier_id=ap.id
+    LEFT JOIN logininfo au ON ro.auditor_id=au.id
+  </sql>
+
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" >
+    insert into `rechargeoffline` (state, remark, auditTime, applyTime, auditor_id, applier_id, 
+      tradeCode, tradeTime, amount, note, bankinfo_id)
+    values (#{state}, #{remark}, #{auditTime}, #{applyTime}, #{auditor.id}, #{applier.id}, 
+      #{tradeCode}, #{tradeTime}, #{amount}, #{note}, #{bankInfo.id})
+  </insert>
+  <update id="updateByPrimaryKey" >
+    update `rechargeoffline`
+    set state = #{state},
+      remark = #{remark},
+      auditTime = #{auditTime},
+      applyTime = #{applyTime},
+      auditor_id = #{auditor.id},
+      applier_id = #{applier.id},
+      tradeCode = #{tradeCode},
+      tradeTime = #{tradeTime},
+      amount = #{amount},
+      note = #{note},
+      bankinfo_id = #{bankInfo.id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from <include refid="base_table"/>
+    where ro.id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from <include refid="base_table"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+    select <include refid="base_column"/>
+    from <include refid="base_table"/>
+    <include refid="base_where"/>
+  </select>
+</mapper>

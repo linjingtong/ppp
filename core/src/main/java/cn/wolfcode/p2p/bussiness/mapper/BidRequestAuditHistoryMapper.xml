@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.bussiness.mapper.BidRequestAuditHistoryMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.bussiness.domain.BidRequestAuditHistory" >
+    <id column="id" property="id" />
+    <result column="state" property="state" />
+    <result column="remark" property="remark" />
+    <result column="auditTime" property="auditTime" />
+    <result column="applyTime" property="applyTime" />
+    <result column="bidRequestId" property="bidRequestId" />
+    <result column="auditType" property="auditType" />
+    <association property="applier" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="ap_">
+      <id column="id" property="id"/>
+      <result column="username" property="username"/>
+    </association>
+    <association property="auditor" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="au_">
+      <id column="id" property="id"/>
+      <result column="username" property="username"/>
+    </association>
+  </resultMap>
+  <insert id="insert" parameterType="cn.wolfcode.p2p.bussiness.domain.BidRequestAuditHistory" useGeneratedKeys="true" keyProperty="id" >
+    insert into `bidrequestaudithistory` (state, remark, auditTime, applyTime, auditor_id, applier_id, 
+      bidRequestId, auditType)
+    values (#{state}, #{remark}, #{auditTime}, #{applyTime}, #{auditor.id}, #{applier.id}, 
+      #{bidRequestId}, #{auditType})
+  </insert>
+  <select id="queryByBidRequestId" resultMap="BaseResultMap"  >
+    select <include refid="base_column"/>
+    from <include refid="base_table"/>
+    where ah.bidRequestId = #{bidRequestId}
+  </select>
+
+  <sql id="base_column">
+    ah.id, ah.state, ah.remark, ah.auditTime, ah.applyTime, ah.bidRequestId, ah.auditType,
+    ap.id AS ap_id,ap.username AS ap_username,
+    au.id AS au_id,au.username AS au_username
+  </sql>
+  <sql id="base_table">
+    `bidrequestaudithistory` ah
+    JOIN logininfo ap ON ah.applier_id=ap.id
+    LEFT JOIN logininfo au ON ah.auditor_id=au.id
+  </sql>
+</mapper>
