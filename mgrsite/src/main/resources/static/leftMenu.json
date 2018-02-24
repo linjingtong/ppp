@@ -55,7 +55,7 @@
 			{
 				"id":35,
 				"text":"认证材料审核",
-				"attributes":{"url":"/systemDictionary/list"}
+				"attributes":{"url":"/userFileAuth"}
 			},
 			{
 				"id":36,
