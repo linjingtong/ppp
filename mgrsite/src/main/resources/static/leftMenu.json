@@ -30,15 +30,6 @@
 				},
 				"text":"系统数据字典明细"
 			},{
-				"id":23,
-				"text":"权限管理"
-			},{
-				"id":24,
-				"text":"角色管理"
-			},{
-				"id":25,
-				"text":"菜单管理"
-			},{
 				"id":26,
 				"attributes": {
 					"url": "/systemDictionary_list"
@@ -54,17 +45,12 @@
 			{
 				"id":31,
 				"text":"实名认证审核",
-				"attributes":{"url":"/employee/list"}
-			},
-			{
-				"id":32,
-				"text":"部门管理",
-				"attributes":{"url":"/department/list"}
+				"attributes":{"url":"/realAuth"}
 			},
 			{
 				"id":34,
 				"text":"视频认证审核",
-				"attributes":{"url":"/role/list"}
+				"attributes":{"url":"/vedioAuth"}
 			},
 			{
 				"id":35,
@@ -121,32 +107,6 @@
 			},{
 				"id":42,
 				"text":"广告设置"
-			}
-		]
-	},
-	{
-		"id":8,
-		"text":"仓库管理",
-		"children":[
-			{
-				"id":43,
-				"text":"出库管理"
-			},{
-				"id":44,
-				"text":"入库管理"
-			},{
-				"id":50,
-				"text":"仓库库存"
-			}
-		]
-	},
-	{
-		"id":9,
-		"text":"报表管理",
-		"children":[
-			{
-				"id":51,
-				"text":"出库报表"
 			}
 		]
 	}

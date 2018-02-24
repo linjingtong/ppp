@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.base.mapper.RealAuthMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.base.domain.RealAuth">
+        <id column="id" property="id"/>
+        <result column="realName" property="realName"/>
+        <result column="sex" property="sex"/>
+        <result column="bornDate" property="bornDate"/>
+        <result column="idNumber" property="idNumber"/>
+        <result column="address" property="address"/>
+        <result column="state" property="state"/>
+        <result column="image1" property="image1"/>
+        <result column="image2" property="image2"/>
+        <result column="remark" property="remark"/>
+        <result column="auditTime" property="auditTime"/>
+        <result column="applyTime" property="applyTime"/>
+        <association property="applier" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="ap_">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+        </association>
+        <association property="auditor" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="au_">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+        </association>
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.wolfcode.p2p.base.domain.RealAuth" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into `realauth` (realName, sex, bornDate, idNumber, address, state, image1, 
+      image2, remark, auditTime, applyTime, auditor_id, applier_id)
+    values (#{realName}, #{sex}, #{bornDate}, #{idNumber}, #{address}, #{state}, #{image1}, 
+      #{image2}, #{remark}, #{auditTime}, #{applyTime}, #{auditor.id}, #{applier.id})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.p2p.base.domain.RealAuth">
+    update `realauth`
+    set realName = #{realName},
+      sex = #{sex},
+      bornDate = #{bornDate},
+      idNumber = #{idNumber},
+      address = #{address},
+      state = #{state},
+      image1 = #{image1},
+      image2 = #{image2},
+      remark = #{remark},
+      auditTime = #{auditTime},
+      applyTime = #{applyTime},
+      auditor_id = #{auditor.id},
+      applier_id = #{applier.id}
+    where id = #{id}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="base_table"/>
+        where ra.id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="base_table"/>
+    </select>
+    <select id="queryForList" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="base_table"/>
+        <include refid="base_where"/>
+    </select>
+
+    <sql id="base_where">
+        <where>
+            <if test="state!=-1">
+                AND ra.state=#{state}
+            </if>
+            <if test="beginDate!=null">
+                AND ra.applyTime>=#{beginDate}
+            </if>
+            <if test="endDate!=null">
+                AND ra.applyTime&lt;=#{endDate}
+            </if>
+        </where>
+    </sql>
+    <sql id="base_column">
+    ra.id, ra.realName, ra.sex, ra.bornDate, ra.idNumber, ra.address, ra.state, ra.image1,
+    ra.image2, ra.remark,ra.auditTime, ra.applyTime,
+    ap.id AS ap_id,ap.username AS ap_username,
+    au.id AS au_id,au.username AS au_username
+  </sql>
+    <sql id="base_table">
+    `realauth` ra
+    JOIN logininfo ap ON ra.applier_id=ap.id
+    LEFT JOIN logininfo au ON ra.auditor_id=au.id
+  </sql>
+</mapper>

@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -105,5 +107,10 @@ public class LogininfoServiceImpl implements ILogininfoService {
             logininfo.setState(Logininfo.STATE_NOMAL);
             logininfoMapper.insert(logininfo);
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> videoAuth_autoSearch(String keyword) {
+        return logininfoMapper.videoAuth_autoSearch(keyword,Logininfo.USERTYPE_USER);
     }
 }

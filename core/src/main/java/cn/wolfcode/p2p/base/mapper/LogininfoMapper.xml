@@ -40,4 +40,10 @@
     from `logininfo`
     where userType=#{usertype}
   </select>
+
+  <select id="videoAuth_autoSearch" resultType="java.util.Map">
+    select id, username
+    from `logininfo`
+    where username LIKE concat(#{keyword},'%') and userType=#{usertype}
+  </select>
 </mapper>
