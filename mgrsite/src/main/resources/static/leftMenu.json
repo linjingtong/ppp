@@ -95,18 +95,21 @@
 				"id":42,
 				"text":"系统账户流水",
 				"attributes":{"url":"/real_auth_list"}
+			}
+		]
+	},
+	{
+		"id":5,
+		"text":"体验标相关",
+		"children":[
+			{
+				"id":41,
+				"text":"发布体验标",
+				"attributes":{"url":"/expBidRequest_publicPage"}
 			},{
-				"id":42,
-				"text":"系统设置"
-			},{
-				"id":42,
-				"text":"企业资讯"
-			},{
-				"id":42,
-				"text":"友情链接"
-			},{
-				"id":42,
-				"text":"广告设置"
+				"id":41,
+				"text":"体验标管理",
+				"attributes":{"url":"/expBidRequest_list"}
 			}
 		]
 	}

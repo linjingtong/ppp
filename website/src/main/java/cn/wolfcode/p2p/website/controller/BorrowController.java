@@ -1,6 +1,7 @@
 package cn.wolfcode.p2p.website.controller;
 
 import cn.wolfcode.p2p.base.domain.Account;
+import cn.wolfcode.p2p.base.domain.Logininfo;
 import cn.wolfcode.p2p.base.domain.Userinfo;
 import cn.wolfcode.p2p.base.service.IAccountService;
 import cn.wolfcode.p2p.base.service.IRealAuthService;
@@ -10,6 +11,7 @@ import cn.wolfcode.p2p.base.util.BidConst;
 import cn.wolfcode.p2p.base.util.UserContext;
 import cn.wolfcode.p2p.bussiness.domain.BidRequest;
 import cn.wolfcode.p2p.bussiness.service.IBidRequestService;
+import cn.wolfcode.p2p.bussiness.service.IExpAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ public class BorrowController {
     private IUserFileService   userFileService;
     @Autowired
     private IRealAuthService   realAuthService;
+    @Autowired
+    private IExpAccountService expAccountService;
 
     @RequestMapping("/borrow")
     public String borrow(Model model) {
@@ -68,31 +72,42 @@ public class BorrowController {
     @RequestMapping("/borrow_info")
     public String borrow_info(Model model, Long id) {
         BidRequest bidRequest = bidRequestService.get(id);
+        Logininfo current = UserContext.getCurrent();
+        String returnPage = "";
         if (bidRequest != null) {
             //bidRequest.disableDate
             model.addAttribute("bidRequest", bidRequest);
-            //userInfo
-            Userinfo userinfo = userinfoService.selectByPrimaryKey(bidRequest.getCreateUser().getId());
-            model.addAttribute("userInfo", userinfo);
-            //realAuth
-            model.addAttribute("realAuth", realAuthService.get(userinfo.getRealAuthId()));
-            //userFiles
-            model.addAttribute("userFiles", userFileService.queryListByApplierId(userinfo.getId()));
-            //是否已经登录
-            if (UserContext.getCurrent() != null) {
-                //是否借款人本身
-                //account,self
-                if (UserContext.getCurrent().getId().equals(bidRequest.getCreateUser().getId())) {
-                    model.addAttribute("self", true);
-                }else{
+            if (bidRequest.getBidRequestType() == BidConst.BIDREQUEST_TYPE_NORMAL) {
+                //userInfo
+                Userinfo userinfo = userinfoService.selectByPrimaryKey(bidRequest.getCreateUser().getId());
+                model.addAttribute("userInfo", userinfo);
+                //realAuth
+                model.addAttribute("realAuth", realAuthService.get(userinfo.getRealAuthId()));
+                //userFiles
+                model.addAttribute("userFiles", userFileService.queryListByApplierId(userinfo.getId()));
+                //是否已经登录
+                if (current != null) {
+                    //是否借款人本身
+                    //account,self
+                    if (current.getId().equals(bidRequest.getCreateUser().getId())) {
+                        model.addAttribute("self", true);
+                    } else {
+                        model.addAttribute("self", false);
+                        model.addAttribute("account", accountService.getCurrent());
+                    }
+                } else {
                     model.addAttribute("self", false);
-                    model.addAttribute("account", accountService.getCurrent());
                 }
-            }else{
-                model.addAttribute("self", false);
+                returnPage = "borrow_info";
+            } else {
+                if (current != null) {
+                    model.addAttribute("expAccount", expAccountService.selectByPrimaryKey(current.getId()));
+                }
+                returnPage = "exp_borrow_info";
             }
 
+
         }
-        return "borrow_info";
+        return returnPage;
     }
 }

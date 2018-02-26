@@ -70,6 +70,11 @@ public class AccountFlowServiceImpl implements IAccountFlowService {
         this.createFlow(account, amount, BidConst.ACCOUNT_ACTIONTYPE_CALLBACK_MONEY, "回款成功,可用金额增加" + amount + "元");
     }
 
+    @Override
+    public void createMoneyWithDrawApplyFlow(Account account, BigDecimal amount) {
+        this.createFlow(account, amount, BidConst.ACCOUNT_ACTIONTYPE_WITHDRAW_FREEZED, "提现申请,可用金额减少" + amount + "元");
+    }
+
 
     public void createFlow(Account account, BigDecimal amount, int actionType, String remark) {
         AccountFlow flow = new AccountFlow();

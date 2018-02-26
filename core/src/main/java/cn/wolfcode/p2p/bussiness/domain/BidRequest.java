@@ -96,5 +96,12 @@ public class BidRequest extends BaseDomain {
         return currentSum.divide(bidRequestAmount, BidConst.DISPLAY_SCALE, RoundingMode.HALF_UP).multiply(new BigDecimal("100"));
     }
 
+    public String getBidRequestTypeDisplay() {
+        if(bidRequestType==BidConst.BIDREQUEST_TYPE_EXP){
+            return "体";
+        }else{
+            return "信";
+        }
+    }
 
 }

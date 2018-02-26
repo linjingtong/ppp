@@ -12,6 +12,13 @@ import cn.wolfcode.p2p.base.service.IUserinfoService;
 import cn.wolfcode.p2p.base.util.BidConst;
 import cn.wolfcode.p2p.base.util.MD5;
 import cn.wolfcode.p2p.base.util.UserContext;
+import cn.wolfcode.p2p.bussiness.domain.Bid;
+import cn.wolfcode.p2p.bussiness.domain.ExpAccount;
+import cn.wolfcode.p2p.bussiness.domain.ExpAccountGrantRecord;
+import cn.wolfcode.p2p.bussiness.service.IExpAccountFlowService;
+import cn.wolfcode.p2p.bussiness.service.IExpAccountGrantRecordService;
+import cn.wolfcode.p2p.bussiness.service.IExpAccountService;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +38,12 @@ public class LogininfoServiceImpl implements ILogininfoService {
     private IAccountService accountService;
     @Autowired
     private IUserinfoService userinfoService;
+    @Autowired
+    private IExpAccountService expAccountService;
+    @Autowired
+    private IExpAccountGrantRecordService recordService;
+    @Autowired
+    private IExpAccountFlowService expAccountFlowService;
 
     @Override
     public int save(Logininfo record) {
@@ -66,6 +79,27 @@ public class LogininfoServiceImpl implements ILogininfoService {
         Userinfo userinfo = new Userinfo();
         userinfo.setId(logininfo.getId());
         userinfoService.insert(userinfo);
+
+        //发放体验金
+        ExpAccountGrantRecord expRecord =new ExpAccountGrantRecord();
+        expRecord.setAmount(BidConst.REGISTER_GRANT_EXPMONEY);
+        expRecord.setGrantDate(new Date());
+        expRecord.setState(ExpAccountGrantRecord.STATE_NORMAL);
+        expRecord.setGrantUserId(logininfo.getId());
+        expRecord.setReturnDate(DateUtils.addDays(new Date(),30));
+        expRecord.setGrantType(BidConst.EXPMONEY_TYPE_REGISTER);
+        expRecord.setNote("注册发放体验金");
+        recordService.insert(expRecord);
+        //创建体验金账户
+        ExpAccount expAccount = new ExpAccount();
+        expAccount.setId(logininfo.getId());
+        expAccount.setUsableAmount(expRecord.getAmount());
+        expAccountService.insert(expAccount);
+        //发放体验金流水
+        Bid bid = new Bid();
+        expAccountFlowService.createRegister_GrantExpMoney_flow(bid,expAccount,BidConst.REGISTER_GRANT_EXPMONEY);
+
+
 
     }
 

@@ -128,6 +128,18 @@
 
                     <div class="row h4 account-info">
                         <div class="col-sm-4">
+                            体验金可用额：<span class="text-primary">${expAccount.usableAmount?string("0.00")}元</span>
+                        </div>
+                        <div class="col-sm-4">
+                            体验金冻结金额：<span class="text-primary">${expAccount.freezedAmount?string("0.00")}元</span>
+                        </div>
+                        <div class="col-sm-4">
+                            体验金待回收金额：<span class="text-primary">${expAccount.unReturnExpAmount?string("0.00")}元</span>
+                        </div>
+                    </div>
+
+                    <div class="row h4 account-info">
+                        <div class="col-sm-4">
                             待收利息：<span class="text-primary">${account.unReceiveInterest?string("0.00")}
                             元</span>
                         </div>

@@ -93,7 +93,7 @@
 						<#list pageResult.list as data>
 							<tr>
 								<td>
-									<a target="_blank" href="/borrow_info.do?id=${data.id}">${data.title}</a>&emsp;<span class="label label-primary">信</span>
+									<a target="_blank" href="/borrow_info.do?id=${data.id}">${data.title}</a>&emsp;<span class="label label-primary">${data.bidRequestTypeDisplay}</span>
 								</td>
 								<td>${data.createUser.username}</td>
 								<td>${(data.applyTime?string("yyyy-MM-dd HH:mm:ss"))!'未发布'}</td>

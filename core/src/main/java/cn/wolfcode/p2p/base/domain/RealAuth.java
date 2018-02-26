@@ -48,9 +48,6 @@ public class RealAuth extends BaseAuditDomain {
 
     /**
      * 获取用户真实名字的隐藏字符串，只显示姓氏
-     *
-     * @param realName
-     *            真实名字
      * @return
      */
     public String getAnonymousRealName() {
@@ -68,8 +65,6 @@ public class RealAuth extends BaseAuditDomain {
 
     /**
      * 获取用户身份号码的隐藏字符串
-     *
-     * @param idNumber
      * @return
      */
     public String getAnonymousIdNumber() {
@@ -90,9 +85,6 @@ public class RealAuth extends BaseAuditDomain {
 
     /**
      * 获取用户住址的隐藏字符串
-     *
-     * @param currentAddress
-     *            用户住址
      * @return
      */
     public String getAnonymousAddress() {

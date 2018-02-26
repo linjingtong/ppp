@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.bussiness.mapper.ExpAccountFlowMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.bussiness.domain.ExpAccountFlow" >
+    <id column="id" property="id" />
+    <result column="actionType" property="actionType" />
+    <result column="amount" property="amount" />
+    <result column="note" property="note" />
+    <result column="usableAmount" property="usableAmount" />
+    <result column="freezedAmount" property="freezedAmount" />
+    <result column="actionTime" property="actionTime" />
+    <result column="expAccountId" property="expAccountId" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.wolfcode.p2p.bussiness.domain.ExpAccountFlow" useGeneratedKeys="true" keyProperty="id" >
+    insert into `expaccountflow` (actionType, amount, note, usableAmount, freezedAmount, actionTime, 
+      expAccountId)
+    values (#{actionType}, #{amount}, #{note}, #{usableAmount}, #{freezedAmount}, #{actionTime}, 
+      #{expAccountId})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, actionType, amount, note, usableAmount, freezedAmount, actionTime, expAccountId
+    from `expaccountflow`
+  </select>
+</mapper>

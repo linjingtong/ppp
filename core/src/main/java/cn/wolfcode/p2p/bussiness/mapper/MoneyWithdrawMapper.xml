@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.p2p.bussiness.mapper.MoneyWithdrawMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.p2p.bussiness.domain.MoneyWithdraw" >
+    <id column="id" property="id" />
+    <result column="accountNumber" property="accountNumber" />
+    <result column="bankForkName" property="bankForkName" />
+    <result column="bankName" property="bankName" />
+    <result column="accountName" property="accountName" />
+    <result column="amount" property="amount" />
+    <result column="state" property="state" />
+    <result column="charge" property="charge" />
+    <result column="remark" property="remark" />
+    <result column="auditTime" property="auditTime" />
+    <result column="applyTime" property="applyTime" />
+    <association property="applier" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="ap_">
+      <id column="id" property="id"/>
+      <result column="username" property="username"/>
+    </association>
+    <association property="auditor" javaType="cn.wolfcode.p2p.base.domain.Logininfo" columnPrefix="au_">
+      <id column="id" property="id"/>
+      <result column="username" property="username"/>
+    </association>
+  </resultMap>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into `moneywithdraw` (accountNumber, bankForkName, bankName, accountName, amount, 
+      state, charge, remark, auditTime, applyTime, auditor_id, applier_id
+      )
+    values (#{accountNumber}, #{bankForkName}, #{bankName}, #{accountName}, #{amount}, 
+      #{state}, #{charge}, #{remark}, #{auditTime}, #{applyTime}, #{auditor.id}, #{applier.id}
+      )
+  </insert>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from <include refid="base_table"/>
+    where m.id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from <include refid="base_table"/>
+  </select>
+
+
+  <sql id="base_column">
+    m.id, m.accountNumber, m.bankForkName, m.bankName, m.accountName, m.amount, m.state, m.charge,
+    m.remark, m.auditTime, m.applyTime,
+    ap.id AS ap_id,ap.username AS ap_username,
+    au.id AS au_id,au.username AS au_username
+  </sql>
+  <sql id="base_table">
+    `moneywithdraw` m
+    JOIN logininfo ap ON m.applier_id=ap.id
+    LEFT JOIN logininfo au ON m.auditor_id=au.id
+  </sql>
+</mapper>

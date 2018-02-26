@@ -63,4 +63,10 @@ public interface IBidRequestService {
      */
     void audit_2(Long id, int state, String remark);
 
+
+    /**
+     * 发布一个体验标
+     * @param bidRequest
+     */
+    void applyExpBidRequest(BidRequest bidRequest);
 }

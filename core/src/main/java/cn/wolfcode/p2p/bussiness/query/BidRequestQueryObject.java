@@ -13,4 +13,6 @@ public class BidRequestQueryObject extends QueryObject {
     private String order;  //列表顺序
 
     private int[] states;
+
+    private int bidRequestType = -1; //标类型
 }

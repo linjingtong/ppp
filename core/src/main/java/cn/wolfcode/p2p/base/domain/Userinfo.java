@@ -42,5 +42,13 @@ public class Userinfo extends BaseDomain {
     public boolean getHasBidrequestProcess() {
         return BitStatesUtils.hasState(this.bitState, BitStatesUtils.OP_HAS_BIDREQUEST_PROCESS);
     }
+    //用户是否有一个提现申请正在处理流程当中
+    public boolean getHasMoneyWithDraw_Process() {
+        return BitStatesUtils.hasState(this.bitState, BitStatesUtils.OP_HAS_MONEYWITHDRAW_PROCESS);
+    }
+    //用户是否绑定银行卡
+    public boolean getHasBindBankinfo() {
+        return BitStatesUtils.hasState(this.bitState, BitStatesUtils.OP_BIND_BANKINFO);
+    }
 
 }

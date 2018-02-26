@@ -66,6 +66,7 @@ public class BidConst {
 															// 按月到期还款(每月还利息,到期还本息)
 	// ---------------------标的类型--------------------------
 	public final static int BIDREQUEST_TYPE_NORMAL = 0; // 普通信用标
+	public final static int BIDREQUEST_TYPE_EXP = 1; // 体验信用标
 
 	// ---------------------借款状态---------------------------
 	public final static int BIDREQUEST_STATE_PUBLISH_PENDING = 0; // 待发布
@@ -136,4 +137,15 @@ public class BidConst {
 	public final static int PAYMENT_STATE_NORMAL = 0; // 正常待还
 	public final static int PAYMENT_STATE_DONE = 1; // 已还
 	public final static int PAYMENT_STATE_OVERDUE = 2; // 逾期
+
+	/** =========体验金相关=============== */
+	public final static BigDecimal REGISTER_GRANT_EXPMONEY = new BigDecimal("500.0000"); //注册发放体验金
+	public final static int EXPMONEY_VAILDATE_MONTH = 1; // 体验金有效时间
+	public final static int EXPMONEY_TYPE_REGISTER = 1; // 体验金发放类型:注册  //注册发放体验金流水类型
+	public final static int EXPMONEY_BID = 2; // 体验金投资类型
+	public final static int EXPMONEY_BID_FAILED = 3; // 体验金投标失败类型
+	public final static int EXPMONEY_BID_SUCCESS = 4; // 体验金投标成功类型
+	public final static BigDecimal SMALLEST_EXP_BIDREQUEST = new BigDecimal("500.0000"); // 体验金最小发布金额
+	public final static BigDecimal SMALLEST_EXP_BID = new BigDecimal("50.0000"); // 体验金最小投资金额
+
 }

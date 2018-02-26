@@ -43,17 +43,22 @@ public class BorrowController {
         if (bidRequest != null) {
             //bidRequest.disableDate
             model.addAttribute("bidRequest", bidRequest);
-            //userInfo
-            Userinfo userinfo = userinfoService.selectByPrimaryKey(bidRequest.getCreateUser().getId());
-            model.addAttribute("userInfo",userinfo );
             //audits
             model.addAttribute("audits",bidRequestAuditHistoryService.queryByBidRequestId(id));
-            //realAuth
-            model.addAttribute("realAuth",realAuthService.get(userinfo.getRealAuthId()));
-            //userFiles
-            model.addAttribute("userFiles",userFileService.queryListByApplierId(userinfo.getId()));
+            //区分信用标和体验标
+            if(bidRequest.getBidRequestType()==BidConst.BIDREQUEST_TYPE_NORMAL){
+                //userInfo
+                Userinfo userinfo = userinfoService.selectByPrimaryKey(bidRequest.getCreateUser().getId());
+                model.addAttribute("userInfo",userinfo );
+                //realAuth
+                model.addAttribute("realAuth",realAuthService.get(userinfo.getRealAuthId()));
+                //userFiles
+                model.addAttribute("userFiles",userFileService.queryListByApplierId(userinfo.getId()));
+                return "bidrequest/borrow_info";
+            }
+
         }
-        return "bidrequest/borrow_info";
+        return "expbidrequest/borrow_info";
     }
 
     @RequestMapping("/bidrequest_publishaudit")

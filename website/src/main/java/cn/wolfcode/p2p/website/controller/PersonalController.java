@@ -5,6 +5,8 @@ import cn.wolfcode.p2p.base.service.IUserinfoService;
 import cn.wolfcode.p2p.base.service.impl.IpLogServiceImpl;
 import cn.wolfcode.p2p.base.util.AjaxResult;
 import cn.wolfcode.p2p.base.util.RequireLogin;
+import cn.wolfcode.p2p.base.util.UserContext;
+import cn.wolfcode.p2p.bussiness.service.IExpAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +21,15 @@ public class PersonalController {
     private IUserinfoService userinfoService;
     @Autowired
     private IpLogServiceImpl ipLogService;
+    @Autowired
+    private IExpAccountService expAccountService;
 
     @RequestMapping("/personal")
     @RequireLogin("登录")
     public String personalPage(Model model) {
         model.addAttribute("account", accountService.getCurrent());
         model.addAttribute("userinfo", userinfoService.getCurrent());
+        model.addAttribute("expAccount",expAccountService.getByUserId(UserContext.getCurrent().getId()));
         //最后登录时间
         model.addAttribute("endLoginTime",ipLogService.getEndLogin());
         return "personal";

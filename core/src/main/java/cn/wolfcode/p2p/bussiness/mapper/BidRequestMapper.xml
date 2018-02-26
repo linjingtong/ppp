@@ -104,6 +104,9 @@
                     #{item}
                 </foreach>
             </if>
+            <if test="bidRequestType!=-1">
+                AND br.bidRequestType=#{bidRequestType}
+            </if>
         </where>
     </sql>
     <sql id="base_column">
