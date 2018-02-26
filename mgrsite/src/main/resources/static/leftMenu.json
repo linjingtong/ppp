@@ -79,7 +79,8 @@
 			},
 			{
 				"id":36,
-				"text":"提现审核"
+				"text":"提现审核",
+				"attributes":{"url":"/moneyWithdraw"}
 			}
 		]
 	},
@@ -109,7 +110,7 @@
 			},{
 				"id":41,
 				"text":"体验标管理",
-				"attributes":{"url":"/expBidRequest_list"}
+				"attributes":{"url":"/expBidRequestReturn_list"}
 			}
 		]
 	}

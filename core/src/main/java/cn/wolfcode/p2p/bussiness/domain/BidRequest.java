@@ -103,5 +103,12 @@ public class BidRequest extends BaseDomain {
             return "信";
         }
     }
+    public String getAuditTypeDisplay() {
+        if(bidRequestType==BidConst.BIDREQUEST_TYPE_EXP){
+            return "体验标";
+        }else{
+            return "信用标";
+        }
+    }
 
 }

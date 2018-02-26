@@ -5,6 +5,7 @@ import cn.wolfcode.p2p.bussiness.domain.SystemAccount;
 import cn.wolfcode.p2p.bussiness.domain.SystemAccountFlow;
 import cn.wolfcode.p2p.bussiness.mapper.SystemAccountFlowMapper;
 import cn.wolfcode.p2p.bussiness.service.ISystemAccountFlowService;
+import cn.wolfcode.p2p.bussiness.util.CalculatetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +27,17 @@ public class SystemAccountFlowServiceImpl implements ISystemAccountFlowService {
 
     @Override
     public void createAccountManageChargeFlow(SystemAccount systemAccount, BigDecimal amount) {
-        createFlow(systemAccount, amount, BidConst.SYSTEM_ACCOUNT_ACTIONTYPE_MANAGE_CHARGE, "收取借款管理费" + amount + "元");
+        createFlow(systemAccount, amount, BidConst.SYSTEM_ACCOUNT_ACTIONTYPE_MANAGE_CHARGE, "收取借款管理费" + CalculatetUtil.calAccountManagementCharge(amount) + "元");
     }
 
     @Override
     public void createIntrestManageChargeflow(SystemAccount systemAccount, BigDecimal amount) {
-        createFlow(systemAccount, amount, BidConst.SYSTEM_ACCOUNT_ACTIONTYPE_INTREST_MANAGE_CHARGE, "收取利息管理费" + amount + "元");
+        createFlow(systemAccount, amount, BidConst.SYSTEM_ACCOUNT_ACTIONTYPE_INTREST_MANAGE_CHARGE, "收取利息管理费" + CalculatetUtil.calInterestManagerCharge(amount) + "元");
+    }
+
+    @Override
+    public void createDrawChargeFeeFlow(SystemAccount systemAccount, BigDecimal amount) {
+        createFlow(systemAccount, amount, BidConst.SYSTEM_ACCOUNT_ACTIONTYPE_WITHDRAW_MANAGE_CHARGE, "收取提现手续费" + CalculatetUtil.calAccountManagementCharge(amount) + "元");
     }
 
 

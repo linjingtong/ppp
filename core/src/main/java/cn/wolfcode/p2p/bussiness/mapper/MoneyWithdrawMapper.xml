@@ -39,7 +39,27 @@
     select <include refid="base_column"/>
     from <include refid="base_table"/>
   </select>
+  <select id="queryForList" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from <include refid="base_table"/>
+  </select>
 
+  <update id="updateByPrimaryKey">
+    update `moneywithdraw`
+    set accountNumber = #{accountNumber,jdbcType=VARCHAR},
+    bankForkName = #{bankForkName,jdbcType=VARCHAR},
+    bankName = #{bankName,jdbcType=VARCHAR},
+    accountName = #{accountName,jdbcType=VARCHAR},
+    amount = #{amount,jdbcType=DECIMAL},
+    state = #{state,jdbcType=TINYINT},
+    charge = #{charge,jdbcType=DECIMAL},
+    remark = #{remark,jdbcType=VARCHAR},
+    auditTime = #{auditTime,jdbcType=TIMESTAMP},
+    applyTime = #{applyTime,jdbcType=TIMESTAMP},
+    auditor_id = #{auditor.id,jdbcType=BIGINT},
+    applier_id = #{applier.id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
   <sql id="base_column">
     m.id, m.accountNumber, m.bankForkName, m.bankName, m.accountName, m.amount, m.state, m.charge,

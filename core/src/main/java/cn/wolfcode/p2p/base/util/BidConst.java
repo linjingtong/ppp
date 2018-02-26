@@ -66,7 +66,7 @@ public class BidConst {
 															// 按月到期还款(每月还利息,到期还本息)
 	// ---------------------标的类型--------------------------
 	public final static int BIDREQUEST_TYPE_NORMAL = 0; // 普通信用标
-	public final static int BIDREQUEST_TYPE_EXP = 1; // 体验信用标
+	public final static int BIDREQUEST_TYPE_EXP = 1; // 体验标
 
 	// ---------------------借款状态---------------------------
 	public final static int BIDREQUEST_STATE_PUBLISH_PENDING = 0; // 待发布
@@ -127,6 +127,7 @@ public class BidConst {
 	public final static int ACCOUNT_ACTIONTYPE_WITHDRAW_UNFREEZED = 13;// 资金流水类别:提现申请失败取消冻结金额
 																		// 冻结金额减少
 																		// 可用余额增加
+	public final static int ACCOUNT_ACTIONTYPE_WITHDRAW_SUCCESS = 14;// 资金流水类别:提现申请成功取消冻结金额
 
 	/** ============系统账户流水类型============= */
 	public final static int SYSTEM_ACCOUNT_ACTIONTYPE_MANAGE_CHARGE = 1;// 系统账户收到账户管理费（借款管理费）
@@ -143,8 +144,8 @@ public class BidConst {
 	public final static int EXPMONEY_VAILDATE_MONTH = 1; // 体验金有效时间
 	public final static int EXPMONEY_TYPE_REGISTER = 1; // 体验金发放类型:注册  //注册发放体验金流水类型
 	public final static int EXPMONEY_BID = 2; // 体验金投资类型
-	public final static int EXPMONEY_BID_FAILED = 3; // 体验金投标失败类型
-	public final static int EXPMONEY_BID_SUCCESS = 4; // 体验金投标成功类型
+	public final static int EXPMONEY_BID_FAILED = 3; // 体验金投标失败流水
+	public final static int EXPMONEY_BID_SUCCESS = 4; // 体验金投标成功流水
 	public final static BigDecimal SMALLEST_EXP_BIDREQUEST = new BigDecimal("500.0000"); // 体验金最小发布金额
 	public final static BigDecimal SMALLEST_EXP_BID = new BigDecimal("50.0000"); // 体验金最小投资金额
 

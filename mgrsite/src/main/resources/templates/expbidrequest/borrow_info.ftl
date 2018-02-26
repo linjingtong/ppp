@@ -159,7 +159,7 @@
 								<tbody>
 									<#list audits as audit>
 							    	<tr style="cursor: pointer;" lid="2101" st="1" class="more">
-								        <td>${audit.auditTypeDisplay}</td>
+								        <td>${audit.auditTypeDisplay!""}</td>
 								        <td>${audit.auditTime?string("yyyy-MM-dd HH:mm:SS")}</td>
 								        <td>${audit.auditor.username}</td>
 								        <td>${audit.remark}</td>

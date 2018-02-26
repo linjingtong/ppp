@@ -67,8 +67,18 @@ public interface IAccountFlowService {
      */
     void createCallbackMoneyFlow(Account account, BigDecimal amount);
     /**
-     * 提现申请流水
+     * 提现申请,冻结金额增加流水
      * @param account
      */
     void createMoneyWithDrawApplyFlow(Account account, BigDecimal amount);
+    /**
+     * 提现成功流水
+     * @param account
+     */
+    void createDrawSuccessFlow(Account account, BigDecimal amount);
+    /**
+     * 提现申请失败流水
+     * @param account
+     */
+    void createDrawFailedFlow(Account account, BigDecimal amount);
 }

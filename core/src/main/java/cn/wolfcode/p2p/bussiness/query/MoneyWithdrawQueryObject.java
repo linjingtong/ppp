@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter@Setter
-public class PaymentScheduleQueryObject extends QueryObject {
+public class MoneyWithdrawQueryObject extends QueryObject {
 
-    private Long borrowUserId;
-
-    private int bidRequestType=-1;
 }
